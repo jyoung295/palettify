@@ -11,6 +11,8 @@
 }
 
 .navbar {
+    background: #F5F5DC;
+
     &-brand {
         a.navbar-item {
             color: black;
@@ -20,4 +22,8 @@
             }
         }
     }
+}
+
+body {
+    background: #F5F5DC;
 }
