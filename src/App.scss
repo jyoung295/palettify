@@ -1,0 +1,23 @@
+@import "../node_modules/bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.content {
+    font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.navbar {
+    &-brand {
+        a.navbar-item {
+            color: black;
+            &:hover {
+                color: black;
+                background: none;
+            }
+        }
+    }
+}
