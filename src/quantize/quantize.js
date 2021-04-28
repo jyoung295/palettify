@@ -1,7 +1,5 @@
-// pull the image data array from the photo
-// convert that array into array of pixel objects
-
-const getPixelArray = (e) => {
+// pixel array worker function converts image data array into an array of objects representing individual rgb pixel groups.
+const getPixelArrayWorker = (e) => {
   let pixelArray = []
   let pixelObj = {}
   
@@ -19,7 +17,7 @@ const getPixelArray = (e) => {
     } else if (i % 4 === 3) {
       pixelObj = {}
       j++
-      if (j%4000 === 0) {
+      if (j%5000 === 0) {
         postMessage((i/rgbArray.length)*100)
       }
     }
@@ -27,51 +25,7 @@ const getPixelArray = (e) => {
   postMessage(pixelArray)
 }
 
-
-// returns the swatch array
-export const quantize = async (imgDataObj, pixelProgressListener, swatchProgressListener) => {
-  let pixelArrayWorkerFunctionBlob = new Blob(["onmessage = " + getPixelArray.toString()], {type: "text/javascript"})
-  const pixelArrayWorker = new Worker(URL.createObjectURL(pixelArrayWorkerFunctionBlob))
-
-  pixelArrayWorker.postMessage(imgDataObj)
-
-  pixelArrayWorker.onmessage = e => {
-    if (typeof e.data === 'number') {
-      pixelProgressListener(e.data)
-    } else {
-      pixelProgressListener(100)
-
-      let swatchWorkerFunctionBlob = new Blob(["onmessage = " + buildSwatchRecursiveWorker.toString()], {type: "text/javascript"})
-      const swatchWorker = new Worker(URL.createObjectURL(swatchWorkerFunctionBlob))
-
-      swatchWorker.postMessage({pixelArray: e.data, currDepth: 0, maxDepth: 3})
-
-      swatchWorker.onmessage = e => {
-        if (typeof e.data === 'number') {
-          swatchProgressListener(e.data)
-        } else {
-          swatchProgressListener(100)
-        }
-        console.log(e)
-      }
-    }
-    // console.log(e)
-  }
-
-
-  // const swatch = buildSwatchRecursive(pixelArray, 0, 3)
-
-  // console.log(pixelArray)
-  // console.log(swatch)
-
-  // // sort swatch by largest range
-  // const sortColor = findLargeRange(swatch)
-  // swatch.sort((color1, color2) => {
-  //   return color1[sortColor] - color2[sortColor]
-  // })
-  // return { swatch, photo, name }
-}
-
+// build swatch worker function runs a simple median cut algorithm recursively to build a color palette based on the depth input 2^(maxDepth)
 const buildSwatchRecursiveWorker = (e) => {
   
   const buildSwatchRecursive = (e) => {
@@ -113,45 +67,37 @@ const buildSwatchRecursiveWorker = (e) => {
   const finalSwatch = buildSwatchRecursive(e)
   postMessage(finalSwatch)
 }
-// const buildSwatchRecursive = (pixelArray, currDepth, maxDepth, swatchProgressListener) => {
-//   if (currDepth === maxDepth) {
-//     // set up swatch
-//     const swatchColor = pixelArray.reduce(
-//       (prev, curr) => {
-//         prev.r += curr.r
-//         prev.g += curr.g
-//         prev.b += curr.b
-//         return prev
-//       },
-//       {
-//         r: 0,
-//         g: 0,
-//         b: 0
-//       }
-//     )
 
-//     swatchColor.r = Math.round(swatchColor.r / pixelArray.length)
-//     swatchColor.g = Math.round(swatchColor.g / pixelArray.length)
-//     swatchColor.b = Math.round(swatchColor.b / pixelArray.length)
+// main function called from App.js to run the quanitzation process functions
+export const quantize = async (imgDataObj, pixelProgressListener, swatchProgressListener) => {
+  let pixelArrayWorkerFunctionBlob = new Blob(["onmessage = " + getPixelArrayWorker.toString()], {type: "text/javascript"})
+  const pixelArrayWorker = new Worker(URL.createObjectURL(pixelArrayWorkerFunctionBlob))
 
-//     return [swatchColor]
-//   } else {
-//     // first find which color to sort by
-//     const sortColor = findLargeRange(pixelArray)
+  pixelArrayWorker.postMessage(imgDataObj)
 
-//     pixelArray.sort((pixel1, pixel2) => {
-//       return pixel1[sortColor] - pixel2[sortColor]
-//     })
+  pixelArrayWorker.onmessage = e => {
+    if (typeof e.data === 'number') {
+      pixelProgressListener(e.data)
+    } else {
+      pixelProgressListener(100)
 
-//     const split = pixelArray.length / 2
-//     const swatch = [
-//       ...buildSwatchRecursive(pixelArray.slice(0, split), currDepth + 1, maxDepth, swatchProgressListener),
-//       ...buildSwatchRecursive(pixelArray.slice(split + 1), currDepth + 1, maxDepth, swatchProgressListener)
-//     ]
-//     swatchProgressListener((currDepth+1/maxDepth+1)*100)
-//     return swatch
-//   }
-// }
+      let swatchWorkerFunctionBlob = new Blob(["onmessage = " + buildSwatchRecursiveWorker.toString()], {type: "text/javascript"})
+      const swatchWorker = new Worker(URL.createObjectURL(swatchWorkerFunctionBlob))
+
+      swatchWorker.postMessage({pixelArray: e.data, currDepth: 0, maxDepth: 3})
+
+      swatchWorker.onmessage = e => {
+        if (typeof e.data === 'number') {
+          swatchProgressListener(e.data)
+        } else {
+          swatchProgressListener(100)
+          const rawPalette = e.data
+          swatchProgressListener({rawPalette, imgW: imgDataObj.imgW, imgH: imgDataObj.imgH})
+        }
+      }
+    }
+  }
+}
 
 const findLargeRange = pixelBucket => {
   let rMin = 255

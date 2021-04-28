@@ -44,6 +44,7 @@ const App = () => {
   const [isCollectingPixelData, setIsCollectingPixelData] = useState(false)
   const [isPreparingToBuildPalette, setIsPreparingToBuildPalette] = useState(false)
   const [isBuildingPalette, setIsBuildingPalette] = useState(false)
+  const [isFinalizingPalette, setIsFinalizingPalette] = useState(false)
   const [isComplete, setIsComplete] = useState(false);
 
 
@@ -55,7 +56,7 @@ const App = () => {
 
     setIsQuantizing(true)
     quantize(imgDataObj, pixelProgressListener, swatchProgressListener).then(e => {
-      
+      console.log(e)
     })
   }
 
@@ -76,16 +77,24 @@ const App = () => {
   }
 
   const swatchProgressListener = (newProgress) => {
-    if(!isBuildingPalette) setIsBuildingPalette(true)
+    if(typeof newProgress !== 'number') {
+      setIsFinalizingPalette(true)
+      const {rawPalette, imgW, imgH} = newProgress
+      console.log(rawPalette, imgW, imgH)
 
-    const currProgress = progressBarProgress
-    const updatedProgress = Math.round((newProgress * 100) / 100)
-
-    if(updatedProgress === 100) {
-      setIsBuildingPalette(false)
-      setProgress(0)
-    } else if (updatedProgress > currProgress) {
-      setProgress(updatedProgress)
+    }else {
+      if(!isBuildingPalette) setIsBuildingPalette(true)
+  
+      const currProgress = progressBarProgress
+      const updatedProgress = Math.round((newProgress * 100) / 100)
+  
+      if(updatedProgress === 100) {
+        setIsBuildingPalette(false)
+        setIsPreparingToBuildPalette(false)
+        setProgress(0)
+      } else if (updatedProgress > currProgress) {
+        setProgress(updatedProgress)
+      }
     }
   }
   
@@ -110,6 +119,7 @@ const App = () => {
                 <p>
                   {isCollectingImageUpload && 'Preparing your image...'}
                   {isPreparingToBuildPalette && 'Preparing to build your palette...'}
+                  {isFinalizingPalette && 'Finalizing your palette...'}
                 </p>
                 <img alt="loader spinner" src={loader} />
               </>
