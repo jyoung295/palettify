@@ -30,7 +30,7 @@ const Upload = ({
     }
 
     return (
-        <section className='file-uploader content box'>
+        <>
             <FontAwesomeIcon icon="file-upload" size="5x" />
 
             {hasSizeError && (
@@ -47,7 +47,7 @@ const Upload = ({
             
             <span>Supports JPG, PNG. Max File Size: 5mb</span>
             <input className="file-uploader__input" type="file" accept="image/png, image/jpeg" onChange={handleFileUpload}/>
-        </section>
+        </>
     )
 }
 

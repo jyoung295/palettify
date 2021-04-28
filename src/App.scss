@@ -27,3 +27,8 @@
 body {
     background: #F5F5DC;
 }
+
+.main-box {
+    min-height: 20rem;
+    transition: min-height 0.2s ease-in-out;
+}
