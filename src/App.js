@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import './App.scss';
 import logo from './images/my-palette-logo.png'
 import loader from './images/loader.gif'
@@ -12,6 +12,7 @@ import ProgressBar from './progress-bar/progress-bar'
 
 import { convertImgData } from './quantize/convert-file'
 import { quantize } from './quantize/quantize'
+import { createPalette } from './quantize/createPalette'
 
 // import firebase from "firebase/app"
 // import "firebase/firestore"
@@ -37,7 +38,7 @@ library.add(faFileUpload)
 
 const App = () => {
 
-  // const [fileObj, setFileObj] = useState({})
+  const [fileObj, setFileObj] = useState(undefined)
   const [progressBarProgress, setProgress] = useState(0)
   const [isQuantizing, setIsQuantizing] = useState(false);
   const [isCollectingImageUpload, setIsCollectingImageUpload] = useState(false)
@@ -46,18 +47,21 @@ const App = () => {
   const [isBuildingPalette, setIsBuildingPalette] = useState(false)
   const [isFinalizingPalette, setIsFinalizingPalette] = useState(false)
   const [isComplete, setIsComplete] = useState(false);
+  const [finalPaletteObj, setFinalPaletteObj] = useState({})
+
+  const fileObjRef = useRef({})
+
+  useEffect(() => {fileObjRef.current = fileObj}, [fileObj]);
 
 
   const collectFile = async (file) => {
     // convert file object to individual r, g, and b pixel data array
     setIsCollectingImageUpload(true)
-    const imgDataObj = await convertImgData(file)
-    console.log(imgDataObj)
+    setFileObj(file)
+    let imgDataObj = await convertImgData(file)
 
     setIsQuantizing(true)
-    quantize(imgDataObj, pixelProgressListener, swatchProgressListener).then(e => {
-      console.log(e)
-    })
+    quantize(imgDataObj, pixelProgressListener, swatchProgressListener)
   }
 
   const pixelProgressListener = (newProgress) => {
@@ -79,8 +83,9 @@ const App = () => {
   const swatchProgressListener = (newProgress) => {
     if(typeof newProgress !== 'number') {
       setIsFinalizingPalette(true)
-      const {rawPalette, imgW, imgH} = newProgress
-      console.log(rawPalette, imgW, imgH)
+      const imgUrl = URL.createObjectURL(fileObjRef.current)
+      const paletteData = {...newProgress, imgUrl}
+      createPalette(paletteData)
 
     }else {
       if(!isBuildingPalette) setIsBuildingPalette(true)
