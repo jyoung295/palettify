@@ -42,6 +42,7 @@ const App = () => {
   const [isQuantizing, setIsQuantizing] = useState(false);
   const [isCollectingImageUpload, setIsCollectingImageUpload] = useState(false)
   const [isCollectingPixelData, setIsCollectingPixelData] = useState(false)
+  const [isPreparingToBuildPalette, setIsPreparingToBuildPalette] = useState(false)
   const [isBuildingPalette, setIsBuildingPalette] = useState(false)
   const [isComplete, setIsComplete] = useState(false);
 
@@ -54,7 +55,7 @@ const App = () => {
 
     setIsQuantizing(true)
     quantize(imgDataObj, pixelProgressListener, swatchProgressListener).then(e => {
-      console.log(e)
+      
     })
   }
 
@@ -66,6 +67,8 @@ const App = () => {
 
     if(updatedProgress === 100) {
       setIsCollectingPixelData(false)
+      setIsCollectingImageUpload(false)
+      setIsPreparingToBuildPalette(true)
       setProgress(0)
     } else if (updatedProgress > currProgress) {
       setProgress(updatedProgress)
@@ -102,10 +105,11 @@ const App = () => {
         <div className="container">
           <section className='file-uploader content box'>
             {!isQuantizing && <Upload collectFile={collectFile}/>}
-            {isQuantizing && !isCollectingPixelData && !isComplete && (
+            {isQuantizing && !isCollectingPixelData && !isBuildingPalette && !isComplete && (
               <>
                 <p>
-                  {isCollectingImageUpload && 'Preparing Uploaded Image...'}
+                  {isCollectingImageUpload && 'Preparing your image...'}
+                  {isPreparingToBuildPalette && 'Preparing to build your palette...'}
                 </p>
                 <img alt="loader spinner" src={loader} />
               </>

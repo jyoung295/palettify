@@ -47,6 +47,11 @@ export const quantize = async (imgDataObj, pixelProgressListener, swatchProgress
       swatchWorker.postMessage({pixelArray: e.data, currDepth: 0, maxDepth: 3})
 
       swatchWorker.onmessage = e => {
+        if (typeof e.data === 'number') {
+          swatchProgressListener(e.data)
+        } else {
+          swatchProgressListener(100)
+        }
         console.log(e)
       }
     }
@@ -71,8 +76,6 @@ const buildSwatchRecursiveWorker = (e) => {
   
   const buildSwatchRecursive = (e) => {
     let {pixelArray, currDepth, maxDepth} = e.data || e
-  
-    if (currDepth > 0) postMessage(((currDepth)/(maxDepth))*100)
   
     if (currDepth === maxDepth) {
       // set up swatch
@@ -102,6 +105,8 @@ const buildSwatchRecursiveWorker = (e) => {
         ...buildSwatchRecursive({pixelArray: pixelArray.slice(0, split), currDepth: currDepth + 1, maxDepth}),
         ...buildSwatchRecursive({pixelArray: pixelArray.slice(split + 1), currDepth: currDepth + 1, maxDepth})
       ]
+
+      if (currDepth > 0) postMessage(((currDepth)/(maxDepth))*100)
       return(swatch)
     }
   }
