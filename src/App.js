@@ -54,17 +54,16 @@ const App = () => {
   const collectFile = async (file) => {
     // convert file object to individual r, g, and b pixel data array
     setFileObj(file)
-    let imgDataObj = await convertImgData(file)
+    let imgData = await convertImgData(file)
 
     setIsQuantizing(true)
-    quantize(imgDataObj, progressListener)
+    quantize(imgData, progressListener)
   }
 
   const progressListener = (newProgress) => {
     if(typeof newProgress !== 'number') {
       setIsFinalizingPalette(true)
-      const imgUrl = URL.createObjectURL(fileObjRef.current)
-      const rawPaletteData = {newProgress, imgUrl}
+      const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
       const finalPaletteData = createPalette(rawPaletteData)
       // TODO: continue process
     } else {

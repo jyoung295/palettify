@@ -7,7 +7,7 @@ onmessage = function(e) {
     let pixelObj = {}
     let progress = 0
     
-    const rgbArray = e.data.imgData
+    const rgbArray = e.data
     let j = 0;
   
     for (const i in rgbArray) {

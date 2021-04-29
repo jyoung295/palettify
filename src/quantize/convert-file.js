@@ -17,5 +17,5 @@ export const convertImgData = async (fileObj) => {
   
     context.drawImage(image, 0, 0)
     const imgData = context.getImageData(0, 0, width, height)
-    return { imgData: imgData.data, imgW: width, imgH: height}
+    return imgData.data
   }
