@@ -64,7 +64,9 @@ const App = () => {
     if(typeof newProgress !== 'number') {
       setIsFinalizingPalette(true)
       const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
-      const finalPaletteData = createPalette(rawPaletteData)
+      const finalPaletteData = createPalette(rawPaletteData).then(e => {
+        console.log(e)
+      })
       // TODO: continue process
     } else {
       if(!isBuildingPalette) setIsBuildingPalette(true)

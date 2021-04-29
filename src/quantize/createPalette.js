@@ -1,12 +1,27 @@
 import Canvas from 'canvas'
+import { convertImgData } from './convert-file';
+var convert = require('color-convert');
 
-export const createPalette = (rawPaletteData) => {
+export const createPalette = async (rawPaletteData) => {
   const {rawPalette, file} = rawPaletteData
   console.log(rawPalette)
   console.log(file)
+
+  const paletteColorsArray = buildPaletteColorsArray(rawPalette)
+  console.log(paletteColorsArray)
+
+  const fileUrl = URL.createObjectURL(file)
+
+  // create temp img
+  const image = await Canvas.loadImage(fileUrl)
   
-  // const swatchCanvas = Canvas.createCanvas(960, 963)
-  // const ctx = swatchCanvas.getContext('2d')
+  //get image height & width
+  const width = image.naturalWidth
+  const height = image.naturalHeight
+
+
+  const swatchCanvas = Canvas.createCanvas(width, height*2)
+  const ctx = swatchCanvas.getContext('2d')
 
   // ctx.drawImage(photo, 0, 0, 960, 473)
   // const half = rawSwatch.length / 2
@@ -21,4 +36,16 @@ export const createPalette = (rawPaletteData) => {
   //   counter++
   // }
   // return swatchCanvas.toBuffer()
+}
+
+const buildPaletteColorsArray = (rawPalette) => {
+  let paletteColorsArray = []
+  rawPalette.forEach((color) => {
+    paletteColorsArray.push({
+      hex: convert.rgb.hex(color.r, color.g, color.b),
+      rgb: `${color.r} ${color.g} ${color.b}`,
+      cmyk: convert.rgb.cmyk(color.r, color.g, color.b)
+    })
+  })
+  return paletteColorsArray
 }

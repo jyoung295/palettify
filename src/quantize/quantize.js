@@ -6,7 +6,6 @@ export const quantize = async (imgData, progressListener) => {
 
   quantizeParentWorker.onmessage = e => {
     if (typeof e.data === 'number') {
-      console.log(e.data)
       progressListener(e.data)
     } else {
       progressListener(100)
