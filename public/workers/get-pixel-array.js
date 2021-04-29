@@ -35,7 +35,7 @@ onmessage = function(e) {
 
     paletteWorker.onmessage = e => {
       if (typeof e.data === 'number') {
-        progress = 50 + e.data
+        progress = 50 + (e.data/2)
         postMessage(progress)
       } else {
         postMessage(100)
