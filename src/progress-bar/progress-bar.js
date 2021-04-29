@@ -23,8 +23,7 @@ const ProgressBar = (props) => {
     <div className="progress-box">
       <div className="progress-caption">
         <p>
-          {phase === 'isCollectingPixelData' && 'Digesting Image Data...'}
-          {phase === 'isBuildingPalette' && 'Building your palette...'}
+          {phase === 'isCollectingPixelData' && 'Digesting image data and determining your palette...'}
         </p>
       </div>
       <div className="progress-container" style={containerStyles}>

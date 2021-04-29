@@ -1,8 +1,8 @@
 import Canvas from 'canvas'
 
-export const createPalette = (paletteData) => {
-  console.log(paletteData)
-  const {rawPalette, ...img} = paletteData
+export const createPalette = (rawPaletteData) => {
+  console.log(rawPaletteData)
+  const {rawPalette, ...img} = rawPaletteData
   // const swatchCanvas = Canvas.createCanvas(960, 963)
   // const ctx = swatchCanvas.getContext('2d')
 

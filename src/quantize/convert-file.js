@@ -7,7 +7,6 @@ export const convertImgData = async (fileObj) => {
   
     // create temp img
     const image = await Canvas.loadImage(fileUrl)
-    console.log(image)
   
     //get image height & width
     const width = image.naturalWidth
