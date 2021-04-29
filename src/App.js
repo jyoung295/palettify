@@ -65,9 +65,10 @@ const App = () => {
       setIsFinalizingPalette(true)
       const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
       const finalPaletteData = createPalette(rawPaletteData).then(e => {
-        console.log(e)
+        return(e)
       })
-      // TODO: continue process
+      // TODO Create new componenet that takes the finalPalette data
+      // and displays the palette image and palette info with color codes.
     } else {
       if(!isBuildingPalette) setIsBuildingPalette(true)
   
