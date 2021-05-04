@@ -3,8 +3,6 @@ var convert = require('color-convert');
 
 export const createPalette = async (rawPaletteData) => {
   const {rawPalette, file} = rawPaletteData
-  console.log(rawPalette)
-  console.log(file)
 
   const paletteColorsArray = buildPaletteColorsArray(rawPalette)
   console.log(paletteColorsArray)
@@ -18,17 +16,18 @@ export const createPalette = async (rawPaletteData) => {
   const width = image.naturalWidth
   const height = image.naturalHeight
 
-
-  const paletteCanvas = Canvas.createCanvas(width, height*2)
+  const paletteCanvas = Canvas.createCanvas(width, height*1.5)
   const ctx = paletteCanvas.getContext('2d')
 
   ctx.drawImage(image, 0, 0)
   paletteColorsArray.forEach((color, i) => {
-    ctx.fillStyle = `#${color.hex}`
-    if (i > 4) {
-      ctx.fillRect(i * (width/4), (height*2), (width/4), (height/4))
+    console.log(i, color)
+    ctx.fillStyle = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
+    console.log(ctx.fillStyle)
+    if (i < 4) {
+      ctx.fillRect(i * (width/4), height, (width/4), (height/4))
     } else {
-      ctx.fillRect((i - 4) * (width/4), (height*2) + (height/4), (width/4), (height/4))
+      ctx.fillRect((i - 4) * (width/4), (height+(height/4)), (width/4), (height/4))
     }
   })
 
@@ -40,7 +39,7 @@ const buildPaletteColorsArray = (rawPalette) => {
   rawPalette.forEach((color) => {
     paletteColorsArray.push({
       hex: convert.rgb.hex(color.r, color.g, color.b),
-      rgb: `${color.r} ${color.g} ${color.b}`,
+      rgb: {r: color.r, g: color.g, b: color.b},
       cmyk: convert.rgb.cmyk(color.r, color.g, color.b)
     })
   })

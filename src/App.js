@@ -64,8 +64,10 @@ const App = () => {
     if(typeof newProgress !== 'number') {
       setIsFinalizingPalette(true)
       const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
-      const finalPaletteData = createPalette(rawPaletteData).then(e => {
-        return(e)
+      createPalette(rawPaletteData).then(e => {
+        setIsComplete(true)
+        setIsQuantizing(false)
+        setFinalPaletteObj(e)
       })
       // TODO Create new componenet that takes the finalPalette data
       // and displays the palette image and palette info with color codes.
@@ -99,7 +101,7 @@ const App = () => {
       <div className="section is-medium">
         <div className="container">
           <section className='file-uploader content box'>
-            {!isQuantizing && <Upload collectFile={collectFile}/>}
+            {!isQuantizing && !isComplete && <Upload collectFile={collectFile}/>}
             {isQuantizing && !isBuildingPalette && !isComplete && (
               <>
                 <p>
@@ -110,6 +112,11 @@ const App = () => {
             )}
             {isQuantizing && isBuildingPalette && !isComplete && (
               <ProgressBar phase={'isCollectingPixelData'} progress={progressBarProgress} />
+            )}
+            {isComplete && !isQuantizing && (
+              <>
+                <img width="400px" alt='Your original upload with your palette!' src={finalPaletteObj.paletteCanvas} />
+              </>
             )}
           </section>
         </div>
