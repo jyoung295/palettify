@@ -7,7 +7,6 @@ export const createPalette = async (rawPaletteData) => {
   const sortedPalette = sortColorsByHue(rawPalette)
 
   const paletteColorsArray = buildPaletteColorsArray(sortedPalette)
-  console.log(paletteColorsArray)
 
   const fileUrl = URL.createObjectURL(file)
 
@@ -23,9 +22,7 @@ export const createPalette = async (rawPaletteData) => {
 
   ctx.drawImage(image, 0, 0)
   paletteColorsArray.forEach((color, i) => {
-    console.log(i, color)
     ctx.fillStyle = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
-    console.log(ctx.fillStyle)
     if (i < 4) {
       ctx.fillRect(i * (width/4), height, (width/4), (height/4))
     } else {
