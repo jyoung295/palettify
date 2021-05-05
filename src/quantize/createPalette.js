@@ -4,7 +4,9 @@ var convert = require('color-convert');
 export const createPalette = async (rawPaletteData) => {
   const {rawPalette, file} = rawPaletteData
 
-  const paletteColorsArray = buildPaletteColorsArray(rawPalette)
+  const sortedPalette = sortColorsByHue(rawPalette)
+
+  const paletteColorsArray = buildPaletteColorsArray(sortedPalette)
   console.log(paletteColorsArray)
 
   const fileUrl = URL.createObjectURL(file)
@@ -44,4 +46,52 @@ const buildPaletteColorsArray = (rawPalette) => {
     })
   })
   return paletteColorsArray
+}
+
+const sortColorsByHue = (rawPalette) => {
+  // convert to hsv
+  let hsvArray = []
+  rawPalette.forEach((color) => {
+    hsvArray.push({
+      hsv: convert.rgb.hsv(color.r, color.g, color.b)
+    })
+  })
+  // sort by the hue value in each hsv color
+  const sortedArray = mergeSort(hsvArray)
+
+  // convert back to rgb
+  let sortedRgbArray = []
+  sortedArray.forEach((color) => {
+    let convertedColor = convert.hsv.rgb(color.hsv)
+    sortedRgbArray.push({
+      r: convertedColor[0], g: convertedColor[1], b: convertedColor[2]
+    })
+  })
+
+  return sortedRgbArray
+}
+
+const mergeSort = (array) => {
+  const half = array.length / 2
+  
+  if(array.length < 2){
+    return array 
+  }
+  
+  const left = array.splice(0, half)
+  return merge(mergeSort(left), mergeSort(array))
+}
+
+const merge = (left, right) => {
+  let arr = []
+
+  while (left.length && right.length) {
+    if (left[0].hsv[0] < right[0].hsv[0]) {
+        arr.push(left.shift())  
+    } else {
+        arr.push(right.shift()) 
+    }
+  }
+
+  return [ ...arr, ...left, ...right ]
 }
