@@ -27,12 +27,13 @@ onmessage = function(e) {
         if (j%50000 === 0 || i === (rgbArray.length - 1)) {
           // update progress variable, send while this loop runs
           // this function makes up 50% of total progress, build palette the other 50%
-          progress = ((i/rgbArray.length)*50)
+          progress = ((i/rgbArray.length)*100)
           postMessage(progress)
         }
       }
     }
 
+    postMessage(100)
     postMessage(pixelArray)
 
     // k-mean subworker calls

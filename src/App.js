@@ -36,6 +36,18 @@ import { createPalette } from './quantize/createPalette'
 // fontawesome library adds
 library.add(faFileUpload)
 
+const loadingNotes = [
+  'Finalizing your palette...',
+  'Doing some hard math...',
+  'Consulting Bob Ross...',
+  'Not much longer now...',
+  'It must be ready soon...',
+  'Wrangling the colors for your palette...',
+  'Figuring this one out...',
+  'What is color, anyway...',
+  "Whew, there's a lot of colors to go through here..."
+]
+
 const App = () => {
 
   const [fileObj, setFileObj] = useState({})
@@ -47,8 +59,10 @@ const App = () => {
   const [finalPaletteObj, setFinalPaletteObj] = useState({})
 
   const fileObjRef = useRef({})
+  const currProgressRef = useRef(0)
 
-  useEffect(() => {fileObjRef.current = fileObj}, [fileObj]);
+  useEffect(() => {fileObjRef.current = fileObj}, [fileObj])
+  useEffect(() => {currProgressRef.current = progressBarProgress}, [progressBarProgress])
 
 
   const collectFile = async (file) => {
@@ -62,19 +76,20 @@ const App = () => {
 
   const progressListener = (newProgress) => {
     if(typeof newProgress !== 'number') {
-      setIsFinalizingPalette(true)
       const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
       createPalette(rawPaletteData).then(e => {
         setIsComplete(true)
         setIsQuantizing(false)
+        setIsFinalizingPalette(false)
         setFinalPaletteObj(e)
       })
-      // TODO Create new componenet that takes the finalPalette data
-      // and displays the palette image and palette info with color codes.
     } else {
       if(!isBuildingPalette) setIsBuildingPalette(true)
+      if(newProgress === 100) {
+        setIsFinalizingPalette(true)
+      }
   
-      const currProgress = progressBarProgress
+      const currProgress = currProgressRef.current
       const updatedProgress = Math.round((newProgress * 100) / 100)
   
       if(updatedProgress === 100) {
@@ -105,7 +120,7 @@ const App = () => {
             {isQuantizing && !isBuildingPalette && !isComplete && (
               <>
                 <p>
-                  {isFinalizingPalette ? 'Finalizing your palette...' : 'Preparing your image...'}
+                  {isFinalizingPalette ? loadingNotes[Math.floor(Math.random() * loadingNotes.length)] : 'Preparing your image...'}
                 </p>
                 <img alt="loader spinner" src={loader} />
               </>

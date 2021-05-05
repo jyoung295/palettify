@@ -1,5 +1,6 @@
 import Canvas from 'canvas'
 
+// const RESIZE_MAX_PIXELS = undefined
 const RESIZE_MAX_PIXELS = 50000
 
 // will grab image data from upload

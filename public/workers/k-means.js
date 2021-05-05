@@ -117,8 +117,9 @@ onmessage = function(e) {
       centroids.push(dataset[index])
     }
 
-    console.log(centroids)
-
+    // this while loop continually recalculates the centroids of each cluster
+    // until eventually the new centroid does not change because it
+    // has been narrowed down to the correct centroid
     while (true) {
       // 'clusters' is an array of arrays. each sub-array corresponds to
       // a cluster, and has the points in that cluster.
@@ -128,24 +129,22 @@ onmessage = function(e) {
       }
 
       dataset.forEach((point, i) => {
-        // if(i === 0) console.log(point)
         const nearest_centroid = nearest_neighbor(point, centroids)
         clusters[nearest_centroid].push(point)
       })
       
       let converged = true
       clusters.forEach((cluster, i) => {
-        let centroid_i = []
+        let newClusterCentroid = []
         if (cluster.length > 0) {
-          centroid_i = centroid(cluster)
+          newClusterCentroid = centroid(cluster)
         } else {
           // For an empty cluster, set a random point as the centroid.
           const index = Math.floor(random() * dataset.length)
-          centroid_i = dataset[index]
+          newClusterCentroid = dataset[index]
         }
-        converged = converged && objectsEqual(centroid_i, centroids[i])
-        centroids[i] = centroid_i
-        postMessage((i + 1)/(centroids.length + 1) + 50)
+        converged = converged && objectsEqual(newClusterCentroid, centroids[i])
+        centroids[i] = newClusterCentroid
       })
 
       
