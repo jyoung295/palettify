@@ -1,7 +1,10 @@
 // pixel array worker function converts image data array into an array of objects representing individual rgb pixel groups.
 onmessage = function(e) {
     // Spawn subworker for the median cut function
-    const paletteWorker = new Worker('./build-palette-recursive.js')
+    // const paletteWorker = new Worker('./build-palette-recursive.js')
+
+    // spawn subworker for k-means
+    // const kMeansWorker = new Worker('./k-means.js')
 
     let pixelArray = []
     let pixelObj = {}
@@ -30,18 +33,34 @@ onmessage = function(e) {
       }
     }
 
-    // call subworker that was spawned previously
-    paletteWorker.postMessage({pixelArray, currDepth: 0, maxDepth: 3})
+    postMessage(pixelArray)
 
-    paletteWorker.onmessage = e => {
-      if (typeof e.data === 'number') {
-        progress = 50 + (e.data/2)
-        postMessage(progress)
-      } else {
-        postMessage(100)
-        const rawPalette = e.data
-        postMessage(rawPalette)
-        paletteWorker.terminate()
-      }
-    }
+    // k-mean subworker calls
+    // kMeansWorker.postMessage({pixelArray, k: 5})
+    // kMeansWorker.onmessage = e => {
+    //   console.log(e.data)
+    //   // if (typeof e.data === 'number') {
+    //   //   progress = 50 + (e.data)
+    //   //   postMessage(progress)
+    //   // } else {
+    //   //   postMessage(100)
+    //   //   const quantizedPixelArray = e.data
+    //   //   kMeansWorker.terminate()
+    //   // }
+    // }
+
+    // call subworker that was spawned previously
+    // paletteWorker.postMessage({pixelArray, currDepth: 0, maxDepth: 3})
+
+    // paletteWorker.onmessage = e => {
+    //   if (typeof e.data === 'number') {
+    //     progress = 50 + (e.data/2)
+    //     postMessage(progress)
+    //   } else {
+    //     postMessage(100)
+    //     const rawPalette = e.data
+    //     postMessage(rawPalette)
+    //     paletteWorker.terminate()
+    //   }
+    // }
   }
