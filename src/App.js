@@ -13,6 +13,7 @@ import ProgressBar from './progress-bar/progress-bar'
 import { convertImgData } from './quantize/convert-file'
 import { quantize } from './quantize/quantize'
 import { createPalette } from './quantize/createPalette'
+import PaletteDisplay from './palette-display/palette-display';
 
 // import firebase from "firebase/app"
 // import "firebase/firestore"
@@ -78,10 +79,10 @@ const App = () => {
     if(typeof newProgress !== 'number') {
       const rawPaletteData = {rawPalette: newProgress, file: fileObjRef.current}
       createPalette(rawPaletteData).then(e => {
+        setFinalPaletteObj(e)
         setIsComplete(true)
         setIsQuantizing(false)
         setIsFinalizingPalette(false)
-        setFinalPaletteObj(e)
       })
     } else {
       if(!isBuildingPalette) setIsBuildingPalette(true)
@@ -129,9 +130,7 @@ const App = () => {
               <ProgressBar phase={'isCollectingPixelData'} progress={progressBarProgress} />
             )}
             {isComplete && !isQuantizing && (
-              <>
-                <img width="400px" alt='Your original upload with your palette!' src={finalPaletteObj.paletteCanvas} />
-              </>
+              <PaletteDisplay paletteData={finalPaletteObj} />
             )}
           </section>
         </div>
