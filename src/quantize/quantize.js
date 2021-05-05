@@ -29,11 +29,9 @@ export const quantize = async (imgData, progressListener) => {
       kMeansWorker.postMessage({pixelArray: labArray, k: 8})
       kMeansWorker.onmessage = e => {
         if (typeof e.data === 'number') {
-          console.log(e.data)
           progressListener(e.data)
         } else {
           const rgbCentroids = convertToRgb(e.data)
-          console.log(rgbCentroids)
           progressListener(rgbCentroids)
           kMeansWorker.terminate()
         }
