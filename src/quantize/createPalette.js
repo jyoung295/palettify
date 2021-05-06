@@ -17,16 +17,18 @@ export const createPalette = async (rawPaletteData) => {
   const width = image.naturalWidth
   const height = image.naturalHeight
 
-  const paletteCanvas = Canvas.createCanvas(width, height*1.5)
+  const paletteHeight = calculatePaletteHeight(height)
+
+  const paletteCanvas = Canvas.createCanvas(width, height + paletteHeight)
   const ctx = paletteCanvas.getContext('2d')
 
   ctx.drawImage(image, 0, 0)
   paletteColorsArray.forEach((color, i) => {
     ctx.fillStyle = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
     if (i < 4) {
-      ctx.fillRect(i * (width/4), height, (width/4), (height/4))
+      ctx.fillRect(i * (width/4), height, (width/4), (paletteHeight/2))
     } else {
-      ctx.fillRect((i - 4) * (width/4), (height+(height/4)), (width/4), (height/4))
+      ctx.fillRect((i - 4) * (width/4), (height + (paletteHeight/2)), (width/4), paletteHeight/2)
     }
   })
 
@@ -91,4 +93,8 @@ const merge = (left, right) => {
   }
 
   return [ ...arr, ...left, ...right ]
+}
+
+const calculatePaletteHeight = (height) => {
+  return ((height*0.5) < 500) ? (height*0.5) : 500
 }
