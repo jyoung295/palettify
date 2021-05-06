@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 
 import './App.scss';
-import logo from './images/my-palette-logo.png'
+import logo from './images/palettify-logo.png'
 import loader from './images/loader.gif'
 
 //fontawesome
@@ -15,24 +15,6 @@ import { convertImgData } from './quantize/convert-file'
 import { quantize } from './quantize/quantize'
 import { createPalette } from './quantize/createPalette'
 import PaletteDisplay from './palette-display/palette-display';
-
-// import firebase from "firebase/app"
-// import "firebase/firestore"
-// import "firebase/auth"
-
-
-// var firebaseConfig = {
-//   apiKey: "AIzaSyABf049OMv97N0iYXVLpkVcG3NA6lHDmX0",
-//   authDomain: "my-palette-c7674.firebaseapp.com",
-//   projectId: "my-palette-c7674",
-//   storageBucket: "my-palette-c7674.appspot.com",
-//   messagingSenderId: "798082696291",
-//   appId: "1:798082696291:web:a221aa6c6ce0585056e456",
-//   measurementId: "G-E1YT48C4Y3"
-// }
-
-// firebase.initializeApp(firebaseConfig)
-// firebase.analytics()
 
 
 // fontawesome library adds
@@ -117,7 +99,7 @@ const App = () => {
           <div className="navbar-brand">
             <a className="navbar-item" href="/#">
               <img alt="my palette logo" src={logo}/>
-              <p className="logo">&nbsp;My Palette</p>
+              <p className="logo">&nbsp;Palettify</p>
             </a>
           </div>
         </div>
