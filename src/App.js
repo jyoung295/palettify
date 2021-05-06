@@ -122,7 +122,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="section is-medium">
+      <div className="section">
         <div className="container">
           <section className='file-uploader content box'>
             {!isQuantizing && !isComplete && <Upload collectFile={collectFile}/>}

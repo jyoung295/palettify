@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 html, body, #app, #app>div {
-    height: 100%
+    height: 100%;
+    background: #F5F5DC;
 }
 
 .content {
@@ -20,16 +21,13 @@ html, body, #app, #app>div {
     &-brand {
         a.navbar-item {
             color: black;
+            padding: 1.5rem 1.5rem 0.5rem;
             &:hover {
                 color: black;
                 background: none;
             }
         }
     }
-}
-
-body {
-    background: #F5F5DC;
 }
 
 .main-box {

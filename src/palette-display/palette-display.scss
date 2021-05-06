@@ -103,6 +103,7 @@
     }
 
     &--restart {
+        z-index: 2;
         border: none;
         background: #FF5555;
         color: black;
@@ -117,6 +118,13 @@
         }
         .svg-inline--fa {
             margin: 0 0 0 1rem;
+        }
+
+        @media screen and (min-width: 1024px) {
+            font-size: 1rem;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
         }
     }
 }
