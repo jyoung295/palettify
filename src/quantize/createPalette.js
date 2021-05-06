@@ -19,7 +19,7 @@ export const createPalette = async (rawPaletteData) => {
 
   const paletteHeight = calculatePaletteHeight(height)
 
-  const paletteCanvas = Canvas.createCanvas(width, height + paletteHeight)
+  const paletteCanvas = Canvas.createCanvas(width, height + paletteHeight - 1)
   const ctx = paletteCanvas.getContext('2d')
 
   ctx.drawImage(image, 0, 0)
@@ -28,7 +28,7 @@ export const createPalette = async (rawPaletteData) => {
     if (i < 4) {
       ctx.fillRect(i * (width/4), height, (width/4), (paletteHeight/2))
     } else {
-      ctx.fillRect((i - 4) * (width/4), (height + (paletteHeight/2)), (width/4), paletteHeight/2)
+      ctx.fillRect((i - 4) * (width/4), (height + (paletteHeight/2) - 1), (width/4), paletteHeight/2)
     }
   })
 
@@ -96,5 +96,5 @@ const merge = (left, right) => {
 }
 
 const calculatePaletteHeight = (height) => {
-  return ((height*0.5) < 500) ? (height*0.5) : 500
+  return ((height*0.5) < 450) ? (height*0.5) : 450
 }
