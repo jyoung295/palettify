@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
+
 import './App.scss';
 import logo from './images/my-palette-logo.png'
 import loader from './images/loader.gif'
@@ -68,7 +69,6 @@ const App = () => {
 
 
   const collectFile = async (file) => {
-    // convert file object to individual r, g, and b pixel data array
     setFileObj(file)
     let imgData = await convertImgData(file)
 
@@ -104,10 +104,10 @@ const App = () => {
   }
 
   const restart = () => {
-    setIsComplete(false)
     setFileObj({})
     setFinalPaletteObj({})
     setProgress(0)
+    setIsComplete(false)
   }
   
   return (
@@ -137,9 +137,7 @@ const App = () => {
             {isQuantizing && isBuildingPalette && !isComplete && (
               <ProgressBar phase={'isCollectingPixelData'} progress={progressBarProgress} />
             )}
-            {isComplete && !isQuantizing && (
-              <PaletteDisplay paletteData={finalPaletteObj} restart={restart} />
-            )}
+            {isComplete && <PaletteDisplay paletteData={finalPaletteObj} restart={restart} />}
           </section>
         </div>
       </div>
