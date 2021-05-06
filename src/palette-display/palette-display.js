@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React from 'react'
 import './palette-display.scss';
 
 const PaletteDisplay = ({
-    paletteData
+    paletteData,
+    restart
 }) => {
 
     const imgSrc = paletteData.paletteCanvas
@@ -38,6 +39,10 @@ const PaletteDisplay = ({
                     })}
                 </tbody>
             </table>
+            <button className="palette-display--restart" onClick={restart}>
+                Start a new Palette?
+                <FontAwesomeIcon icon="undo" size="sm" />
+            </button>
         </div>
     )
 }

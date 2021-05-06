@@ -5,7 +5,7 @@ import loader from './images/loader.gif'
 
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
+import { faFileUpload, faUndo } from '@fortawesome/free-solid-svg-icons'
 
 import Upload from './upload/Upload'
 import ProgressBar from './progress-bar/progress-bar'
@@ -36,6 +36,7 @@ import PaletteDisplay from './palette-display/palette-display';
 
 // fontawesome library adds
 library.add(faFileUpload)
+library.add(faUndo)
 
 const loadingNotes = [
   'Finalizing your palette...',
@@ -101,6 +102,13 @@ const App = () => {
       }
     }
   }
+
+  const restart = () => {
+    setIsComplete(false)
+    setFileObj({})
+    setFinalPaletteObj({})
+    setProgress(0)
+  }
   
   return (
     <>
@@ -130,7 +138,7 @@ const App = () => {
               <ProgressBar phase={'isCollectingPixelData'} progress={progressBarProgress} />
             )}
             {isComplete && !isQuantizing && (
-              <PaletteDisplay paletteData={finalPaletteObj} />
+              <PaletteDisplay paletteData={finalPaletteObj} restart={restart} />
             )}
           </section>
         </div>

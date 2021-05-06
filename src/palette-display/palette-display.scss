@@ -101,4 +101,22 @@
             }
         }
     }
+
+    &--restart {
+        border: none;
+        background: #FF5555;
+        color: black;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        font-size: 1.25rem;
+        transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+        &:hover {
+            color: black;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+        .svg-inline--fa {
+            margin: 0 0 0 1rem;
+        }
+    }
 }
