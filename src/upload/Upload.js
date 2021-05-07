@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 import './Upload.scss';
 
@@ -31,7 +30,7 @@ const Upload = ({
 
     return (
         <>
-            <FontAwesomeIcon icon="file-upload" size="5x" />
+            <span class="material-icons upload">upload_file</span>
 
             {hasSizeError && (
                 <p className="hasError">Your photo was too large! Please choose another under 5mb.</p>

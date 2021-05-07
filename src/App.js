@@ -4,10 +4,6 @@ import './App.scss';
 import logo from './images/palettify-logo.png'
 import loader from './images/loader.gif'
 
-//fontawesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFileUpload, faUndo } from '@fortawesome/free-solid-svg-icons'
-
 import Upload from './upload/Upload'
 import ProgressBar from './progress-bar/progress-bar'
 
@@ -15,11 +11,6 @@ import { convertImgData } from './quantize/convert-file'
 import { quantize } from './quantize/quantize'
 import { createPalette } from './quantize/createPalette'
 import PaletteDisplay from './palette-display/palette-display';
-
-
-// fontawesome library adds
-library.add(faFileUpload)
-library.add(faUndo)
 
 const loadingNotes = [
   'Finalizing your palette...',

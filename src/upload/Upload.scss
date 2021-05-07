@@ -28,11 +28,6 @@
         pointer-events: none;
     }
 
-    .svg-inline--fa {
-        margin-bottom: 1.75rem;
-        transition: all 0.1s ease-in-out;
-    }
-
     p {
         margin-bottom: 0.25rem !important;
         font-size: 1.5rem;
@@ -70,10 +65,19 @@
     }
 
     &:hover {
-        // cursor: pointer;
-
-        .svg-inline--fa {
-            transform: scale(1.075);
+        .material-icons {
+            &.upload {
+                transform: scale(1.075);
+            }
         }
+    }
+}
+
+.material-icons {
+    &.upload {
+        font-size: 3.5rem;
+        color: #2370FF;
+        margin-bottom: 1rem;
+        transition: all 0.1s ease-in-out;
     }
 }
