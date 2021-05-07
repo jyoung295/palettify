@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import './palette-display.scss';
 
@@ -41,7 +40,7 @@ const PaletteDisplay = ({
             </table>
             <button className="palette-display--restart" onClick={restart}>
                 Start a new Palette?
-                <FontAwesomeIcon icon="undo" size="sm" />
+                <span className="material-icons restart">undo</span>
             </button>
         </div>
     )

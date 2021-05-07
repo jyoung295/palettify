@@ -106,6 +106,8 @@
 
     &--restart {
         z-index: 2;
+        display: flex;
+        align-items: center;
         border: none;
         background: #FF5555;
         color: black;
@@ -118,8 +120,13 @@
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
         }
-        .svg-inline--fa {
+        .material-icons {
             margin: 0 0 0 1rem;
+
+            &.restart {
+                color: black;
+                font-size: 1.5rem;
+            }
         }
 
         @media screen and (min-width: 1024px) {
