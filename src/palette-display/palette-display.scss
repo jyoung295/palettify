@@ -24,6 +24,21 @@
         flex-direction: column;
         justify-content: stretch;
         margin-bottom: 0 !important;
+        
+        &:before {
+            content: "Tap any color code to copy it to the clipboard!";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #2370FF;
+            color: white;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
 
         thead {
             @media screen and (max-width: 767px){
@@ -92,6 +107,69 @@
                         color: black;
                         font-weight: 700;
                         margin-right: 0.25rem;
+                        display: inline-flex;
+                        width: 3.25rem;
+
+                        @media screen and (max-width: 767px) {
+                            width: 5rem;
+                        }
+                    }
+                }
+
+                &--copy-button {
+                    background: none;
+                    border: none;
+                    font-size: 1rem;
+                    text-align: left;
+                    position: relative;
+                    width: 7.5rem;
+
+                    &:hover {
+                        cursor: pointer;
+
+                        &:after {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                        &:before {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+
+                    &:after {
+                        content: "Click to copy!";
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        visibility: hidden;
+                        opacity: 0;
+                        position: absolute;
+                        left: 80%;
+                        bottom: -5.75px;
+                        background: #2370FF;
+                        color: white;
+                        padding: 0 0.5rem;
+                        width: 8rem;
+                        height: 2rem;
+                        transition: opacity 0.2s ease-in-out;
+                        pointer-events: none;
+                    }
+
+                    &:before {
+                        content: '';
+                        visibility: hidden;
+                        opacity: 0;
+                        position: absolute;
+                        right: 1.5rem;
+                        bottom: 2.875px;
+                        border-right: 0.5rem solid #2370FF;
+                        border-top: 0.5rem solid transparent;
+                        border-bottom: 0.5rem solid transparent;
+                        width: 0;
+                        height: 0;
+                        transition: opacity 0.2s ease-in-out;
+                        pointer-events: none;
                     }
                 }
 
