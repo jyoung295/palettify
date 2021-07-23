@@ -30,7 +30,7 @@ const Upload = ({
 
     return (
         <>
-            <span class="material-icons upload">upload_file</span>
+            <span className="material-icons upload">upload_file</span>
 
             {hasSizeError && (
                 <p className="hasError">Your photo was too large! Please choose another under 5mb.</p>

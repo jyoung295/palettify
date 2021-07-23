@@ -39,7 +39,7 @@ const PaletteDisplay = ({
                 </tbody>
             </table>
             <button className="palette-display--restart" onClick={restart}>
-                Start a new Palette?
+                <span>Start a new Palette?</span>
                 <span className="material-icons restart">undo</span>
             </button>
         </div>
