@@ -7,8 +7,12 @@
     align-items: center;
     justify-content: center;
     min-height: 20rem;
-    padding: 2rem 1rem;
+    padding: 2rem 3rem;
     transition: min-height 0.7s ease-in-out;
+
+    @media screen and (max-width: 1023px) { 
+        padding: 2rem;
+    }
 
     &.drag-over {
         &:after {
@@ -26,6 +30,13 @@
         border: 1px #2370FF dashed;
         border-radius: 0.75rem;
         pointer-events: none;
+
+        @media screen and (max-width: 1023px) {
+            top: 1rem;
+            left: 1rem;
+            width: calc(100% - 2rem);
+            height: calc(100% - 2rem);
+        }
     }
 
     p {
