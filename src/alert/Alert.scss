@@ -1,0 +1,36 @@
+.alert {
+    position: fixed;
+    left: 1rem;
+    bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    background: #2370FF;
+
+    p {
+        font-size: 0.9rem;
+        color: white;
+        margin: 0 !important;
+    }
+
+    &.severity {
+
+        &--low {
+            background-color: #2370FF;
+        }
+
+        &--medium {
+            background-color: #ff8e24;
+
+            p {
+                color: black;
+            }
+        }
+
+        &--high {
+            background-color: #C62828;
+        }
+    }
+}
