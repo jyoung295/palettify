@@ -139,6 +139,17 @@
                             visibility: visible;
                             opacity: 1;
                         }
+
+                        @media screen and (max-width: 767px){
+                            &:after {
+                                visibility: hidden;
+                                opacity: 0;
+                            }
+                            &:before {
+                                visibility: hidden;
+                                opacity: 0;
+                            }
+                        }
                     }
 
                     &:after {
