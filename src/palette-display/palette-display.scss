@@ -160,7 +160,7 @@
                         visibility: hidden;
                         opacity: 0;
                         position: absolute;
-                        left: 80%;
+                        left: 90%;
                         bottom: -5.75px;
                         background: #2370FF;
                         color: white;
@@ -169,6 +169,7 @@
                         height: 2rem;
                         transition: opacity 0.2s ease-in-out;
                         pointer-events: none;
+                        border-radius: 0 0.5rem 0.5rem 0;
                     }
 
                     &:before {
@@ -176,11 +177,11 @@
                         visibility: hidden;
                         opacity: 0;
                         position: absolute;
-                        right: 1.5rem;
-                        bottom: 2.875px;
-                        border-right: 0.5rem solid #2370FF;
-                        border-top: 0.5rem solid transparent;
-                        border-bottom: 0.5rem solid transparent;
+                        left: calc(90% - 0.75rem);
+                        bottom: -5.75px;
+                        border-right: 0.75rem solid #2370FF;
+                        border-top: 1rem solid transparent;
+                        border-bottom: 1rem solid transparent;
                         width: 0;
                         height: 0;
                         transition: opacity 0.2s ease-in-out;

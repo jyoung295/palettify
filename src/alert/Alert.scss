@@ -1,0 +1,56 @@
+.alert {
+    position: fixed;
+    left: 1rem;
+    bottom: calc(1.5rem - 200px);
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    background: #2370FF;
+
+    @media screen and (min-width: 768px) {
+        width: 21rem;
+        left: 4.55rem;
+        padding: 1.25rem;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 23rem;
+        left: calc(50% - 11.5rem);
+        padding: 1.25rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+        color: white;
+        margin: 0 !important;
+
+        @media screen and (min-width: 768px) {
+            font-size: 1rem;
+        }
+
+        @media screen and (min-width: 1024px) {
+            font-size: 1.1rem;
+        }
+    }
+
+    &.severity {
+
+        &--low {
+            background-color: #2370FF;
+        }
+
+        &--medium {
+            background-color: #ff8e24;
+
+            p {
+                color: black;
+            }
+        }
+
+        &--high {
+            background-color: #C62828;
+        }
+    }
+}
