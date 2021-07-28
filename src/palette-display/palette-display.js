@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './palette-display.scss';
 import Alert from '../alert/Alert'
 
+let alertEnd
+
 const PaletteDisplay = ({
     paletteData,
     restart
@@ -15,18 +17,26 @@ const PaletteDisplay = ({
     const colors = paletteData.paletteColorsArray
 
     const copyText = (e) => {
+
+        setShowAlert(false)
+        setAlertText('')
+        setAlertSeverity('')
+        clearTimeout(alertEnd)
+
         const text = e.target.innerText
         navigator.clipboard.writeText(text)
 
-        setAlertText('Copied to Clipboard!')
-        setAlertSeverity('low')
-        setShowAlert(true)
+        setTimeout(() => {
+            setAlertText(`${text} - Copied to Clipboard!`)
+            setAlertSeverity('low')
+            setShowAlert(true)
+        }, 100)
 
-        // setTimeout(() => {
-        //     setShowAlert(false)
-        //     setAlertText('')
-        //     setAlertSeverity('')
-        // }, 5000);
+        alertEnd = setTimeout(() => {
+            setShowAlert(false)
+            setAlertText('')
+            setAlertSeverity('')
+        }, 3000)
     }
 
     return (
@@ -65,7 +75,7 @@ const PaletteDisplay = ({
                 </button>
             </div>
             {showAlert ? (
-                <Alert alertText={alertText} severity={alertSeverity}></Alert>
+                <Alert alertText={alertText} severity={alertSeverity} ></Alert>
             ) : ''}
         </>
     )

@@ -1,7 +1,7 @@
 .alert {
     position: fixed;
     left: 1rem;
-    bottom: 1.5rem;
+    bottom: calc(1.5rem - 200px);
     display: flex;
     justify-content: center;
     width: 70%;
@@ -9,10 +9,30 @@
     border-radius: 0.75rem;
     background: #2370FF;
 
+    @media screen and (min-width: 768px) {
+        width: 21rem;
+        left: 4.55rem;
+        padding: 1.25rem;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 23rem;
+        left: calc(50% - 11.5rem);
+        padding: 1.25rem;
+    }
+
     p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: white;
         margin: 0 !important;
+
+        @media screen and (min-width: 768px) {
+            font-size: 1rem;
+        }
+
+        @media screen and (min-width: 1024px) {
+            font-size: 1.1rem;
+        }
     }
 
     &.severity {

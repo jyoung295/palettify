@@ -7,15 +7,19 @@ const Alert = ({
     severity,
 }) => {
 
-    const springProps = useSpring({ to: { y: 100 }, from: { y: 0 } })
+    console.log()
+
+    const springObj = { to: { y: -200 }, from: { y: 0 }, loop: { reverse: true, delay: 1250 } }
+
+    let springProps = useSpring(springObj)
 
     return (
-        // <animated.div style={springProps} className={`alert severity--${severity}`}>
-        //     <p>{alertText}</p>
-        // </animated.div>
-        <div className={`alert severity--${severity}`}>
+        <animated.div style={springProps} className={`alert severity--${severity}`}>
             <p>{alertText}</p>
-        </div>
+        </animated.div>
+        // <div className={`alert severity--${severity}`}>
+        //     <p>{alertText}</p>
+        // </div>
     )
 }
 
