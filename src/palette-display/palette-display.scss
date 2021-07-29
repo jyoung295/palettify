@@ -78,7 +78,7 @@
             }
 
             td {
-                padding: 0.75rem 0.5rem;
+                padding: 1.25rem 0.5rem;
                 display: flex;
                 @media screen and (max-width: 767px){
                     padding: 1rem;
@@ -90,6 +90,8 @@
                 flex: 1 0 60%;
                 &--brick {
                     width: 80%;
+                    border-radius: 0.35rem;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
                 }
 
                 @media screen and (max-width: 767px){
@@ -118,6 +120,10 @@
                             width: 5rem;
                         }
                     }
+
+                    &:last-child {
+                        margin: 0 !important;
+                    }
                 }
 
                 &--copy-button {
@@ -127,6 +133,10 @@
                     text-align: left;
                     position: relative;
                     width: 7.5rem;
+
+                    @media screen and (max-width: 767px) {
+                        width: auto;
+                    }
 
                     &:hover {
                         cursor: pointer;
