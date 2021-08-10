@@ -38,18 +38,25 @@ html, body, #app, #app>div {
             font-size: 1rem;
             position: relative;
 
+            &:after {
+                content: '';
+                position: absolute;
+                height: 2px;
+                width: calc(100% - 1.5rem);
+                background: #2370FF;
+                left: 0.75rem;
+                bottom: 0.5rem;
+                transform-origin: left;
+                transform: scaleX(0);
+                transition: transform 0.1s ease;
+            }
+
             &:hover {
                 color: black;
                 background: none;
 
                 &:after {
-                    content: '';
-                    position: absolute;
-                    height: 2px;
-                    width: calc(100% - 1.5rem);
-                    background: #2370FF;
-                    left: 0.75rem;
-                    bottom: 0.5rem;
+                    transform: scaleX(1)
                 }
             }
 

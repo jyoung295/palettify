@@ -38,10 +38,6 @@ const App = () => {
               <img alt="my palette logo" src={logo}/>
               <p className="logo">&nbsp;Palettify</p>
             </Link>
-            {/* <a className="navbar-item" href="/#">
-              <img alt="my palette logo" src={logo}/>
-              <p className="logo">&nbsp;Palettify</p>
-            </a> */}
           </div>
           <div className="navbar-end">
             <Link className="navbar-item" to="/login">Log in</Link>
