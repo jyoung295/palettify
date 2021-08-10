@@ -28,6 +28,7 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
+firebase.analytics()
 
 const loadingNotes = [
   'Finalizing your palette...',
