@@ -17,14 +17,54 @@ html, body, #app, #app>div {
 
 .navbar {
     background: #F5F5DC;
+    padding-top: 1.5rem;
 
     &-brand {
         a.navbar-item {
             color: black;
-            padding: 1.5rem 1.5rem 0.5rem;
             &:hover {
                 color: black;
                 background: none;
+            }
+        }
+    }
+
+    &-end {
+        align-items: center;
+
+        a.navbar-item {
+            color: black;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+
+            &:hover {
+                color: black;
+                background: none;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: calc(100% - 1.5rem);
+                    background: #2370FF;
+                    left: 0.75rem;
+                    bottom: 0.5rem;
+                }
+            }
+
+            &:focus {
+                background: none;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: calc(100% - 1.5rem);
+                    background: #2370FF;
+                    left: 0.75rem;
+                    bottom: 0.5rem;
+                }
             }
         }
     }

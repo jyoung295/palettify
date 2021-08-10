@@ -11,6 +11,7 @@ import './App.scss';
 import logo from './images/palettify-logo.png'
 
 import PaletteBuilder from './palette-builder/palette-builder'
+import Login from './login/Login'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBounGH3RV6QDuoib_h77mZ17NTyqGIzdg",
@@ -22,27 +23,45 @@ const firebaseConfig = {
   measurementId: "G-56TEQPEH74"
 }
 
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
+!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 firebase.analytics()
 
 const App = () => {
   
   return (
-    <>
+    <Router>
       <div className="container">
         <div className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
-            <a className="navbar-item" href="/#">
+            <Link className="navbar-item" to="/">
               <img alt="my palette logo" src={logo}/>
               <p className="logo">&nbsp;Palettify</p>
-            </a>
+            </Link>
+            {/* <a className="navbar-item" href="/#">
+              <img alt="my palette logo" src={logo}/>
+              <p className="logo">&nbsp;Palettify</p>
+            </a> */}
+          </div>
+          <div className="navbar-end">
+            <Link className="navbar-item" to="/login">Log in</Link>
           </div>
         </div>
       </div>
 
-      <PaletteBuilder />
+      <Switch>
 
-    </>
+        <Route path="/login">
+          <Login />
+        </Route>
+
+        <Route path="/">
+          <PaletteBuilder />
+        </Route>
+        
+      </Switch>
+
+    </Router>
   );
 }
 
