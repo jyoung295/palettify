@@ -1,5 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'firebase/storage'
+
 import './App.scss';
 import logo from './images/palettify-logo.png'
 import loader from './images/loader.gif'
@@ -11,6 +16,18 @@ import { convertImgData } from './quantize/convert-file'
 import { quantize } from './quantize/quantize'
 import { createPalette } from './quantize/createPalette'
 import PaletteDisplay from './palette-display/palette-display';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBounGH3RV6QDuoib_h77mZ17NTyqGIzdg",
+  authDomain: "palettify-me.firebaseapp.com",
+  projectId: "palettify-me",
+  storageBucket: "palettify-me.appspot.com",
+  messagingSenderId: "541069334271",
+  appId: "1:541069334271:web:098fdc41f85df350285eca",
+  measurementId: "G-56TEQPEH74"
+}
+
+firebase.initializeApp(firebaseConfig)
 
 const loadingNotes = [
   'Finalizing your palette...',
